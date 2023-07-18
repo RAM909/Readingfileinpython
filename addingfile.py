@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 import os
+import pandas as pd
 
 # create the root window
 root = tk.Tk()
@@ -18,13 +19,15 @@ def select_file():
     )
 
     filename = fd.askopenfilename()
+    file1 = pd.read_csv("r",filename)
 
 
-    Text_file = open(filename, 'r')
-    Text = Text_file.read()
+   # Text_file = open(filename, 'r')
+    #Text = Text_file.read()
 
-    print(Text)
-    Text_file.close()
+    #print(Text)
+    #Text_file.close()
+    print(file1)
 
 
 # open button
