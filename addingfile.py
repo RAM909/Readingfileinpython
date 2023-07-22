@@ -4,6 +4,9 @@ from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 import os
 import pandas as pd
+from tkinter.filedialog import asksaveasfile
+
+file1 = None
 
 # create the root window
 root = tk.Tk()
@@ -11,23 +14,31 @@ root.title('Tkinter Open File Dialog')
 root.resizable(False, False)
 root.geometry('300x150')
 
+def save():
+    global file1  # Access the global variable
+    filesave = asksaveasfile()
+    if filesave:
+        file1.to_json(filesave)
 
 def select_file():
-    filetypes = (
-        ('text files', '*.txt'),
-        ('All files', '*.*')
-    )
+    global file1  # Access the global variable
 
     filename = fd.askopenfilename()
-    file1 = pd.read_csv("r",filename)
+    file1 = pd.read_csv(filename)
 
+    # Print the content to verify it has been read successfully
+    #print(file1)
 
-   # Text_file = open(filename, 'r')
-    #Text = Text_file.read()
+    root = tk.Tk()
+    root.geometry('200x150')
 
-    #print(Text)
-    #Text_file.close()
-    print(file1)
+    btn = ttk.Button(
+        root,
+        text='Save',
+        command=save
+    )
+    btn.pack(expand=True)
+    root.mainloop()
 
 
 # open button
@@ -38,7 +49,6 @@ open_button = ttk.Button(
 )
 
 open_button.pack(expand=True)
-
 
 # run the application
 root.mainloop()
